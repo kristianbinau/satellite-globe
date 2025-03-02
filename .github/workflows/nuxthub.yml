@@ -18,25 +18,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Ensure NuxtHub module is installed
-        run: pnpx nuxthub@latest ensure
+        run: npx nuxthub@latest ensure
 
       - name: Build application
-        run: pnpm build
+        run: npm run build
 
       - name: Deploy to NuxtHub
         uses: nuxt-hub/action@v1
